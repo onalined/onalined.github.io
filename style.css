@@ -47,3 +47,33 @@ pre {
 pre strong { 
   color: #333; 
 }
+/* ... (your existing styles) */
+
+/* Responsive Layout Adjustments */
+@media (max-width: 768px) {  /* Apply for screens up to 768px wide (common tablet breakpoint) */
+  textarea {
+    height: 80px; /* Reduce textarea height on smaller screens */
+  }
+
+  button {
+    padding: 8px 16px; /* Smaller button padding */
+  }
+
+  pre {
+    font-size: 14px; /* Adjust font size for readability */
+  }
+}
+
+@media (max-width: 480px) {  /* Apply for screens up to 480px wide (common phone breakpoint) */
+  h2 {
+    font-size: 18px; /* Smaller heading size */
+  }
+
+  textarea {
+    height: 60px;
+  }
+
+  button {
+    padding: 6px 12px;
+  }
+}
