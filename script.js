@@ -34,13 +34,13 @@ generateButton.addEventListener("click", () => {
             <p>Timestamp: ${getFormattedDateTime()}</p>
             
             <h3>Initial Issue</h3>
-            <p>${initialIssueText}</p>
+            ${initialIssueText.replace(/\n/g, '<br>')}
 
             <h3>Troubleshooting</h3>
-            <p>${troubleshootingText}</p>
+            ${troubleshootingText.replace(/\n/g, '<br>')}
 
             <h3>Resolution</h3>
-            <p>${resolutionText}</p>
+            ${resolutionText.replace(/\n/g, '<br>')}
         </div>
         <button id="copyButton">Copy Notes</button>
         <button id="resetButton">Reset</button>
@@ -53,14 +53,17 @@ generateButton.addEventListener("click", () => {
 
     // Copy button functionality (using Clipboard API if available)
     copyButton.addEventListener("click", () => {
+        // Get the text content without extra whitespace or HTML tags
+        const notesText = notesOutputDiv.querySelector('.notes-container').innerText; 
+
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(notesOutputDiv.textContent)
+            navigator.clipboard.writeText(notesText)
                 .then(() => alert("Notes copied to clipboard!"))
                 .catch(err => console.error('Failed to copy: ', err));
         } else {
             // Fallback to old method
             const tempTextarea = document.createElement("textarea");
-            tempTextarea.value = notesOutputDiv.textContent;
+            tempTextarea.value = notesText;
             document.body.appendChild(tempTextarea);
             tempTextarea.select();
             document.execCommand("copy");
@@ -77,18 +80,4 @@ generateButton.addEventListener("click", () => {
         notesOutputDiv.style.display = "none";
         templateDiv.style.display = "block";
     });
-});
-
-// Copy button functionality (using Clipboard API if available)
-copyButton.addEventListener("click", () => {
-    // Get the text content without extra whitespace
-    const notesText = notesOutputDiv.querySelector('.notes-container').textContent; 
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(notesText) 
-            .then(() => alert("Notes copied to clipboard!"))
-            .catch(err => console.error('Failed to copy: ', err));
-    } else {
-        // ... (fallback method - same as before)
-    }
 });
