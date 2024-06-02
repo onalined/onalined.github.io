@@ -78,3 +78,17 @@ generateButton.addEventListener("click", () => {
         templateDiv.style.display = "block";
     });
 });
+
+// Copy button functionality (using Clipboard API if available)
+copyButton.addEventListener("click", () => {
+    // Get the text content without extra whitespace
+    const notesText = notesOutputDiv.querySelector('.notes-container').textContent; 
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(notesText) 
+            .then(() => alert("Notes copied to clipboard!"))
+            .catch(err => console.error('Failed to copy: ', err));
+    } else {
+        // ... (fallback method - same as before)
+    }
+});
