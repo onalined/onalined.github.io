@@ -17,7 +17,7 @@ h2 {
 
 /* Main container for the form and notes output */
 #template, #notesOutput {
-    width: 90%; /* Adjust the width as needed (e.g., 80%) */
+    width: 50%; /* Adjust the width as needed (e.g., 80%) */
     max-width: 800px; /* Limit the maximum width for larger screens */
     padding: 20px;
     border: 1px solid #ccc;
