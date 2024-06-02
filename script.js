@@ -1,61 +1,82 @@
+// Get references to elements
 const timestamp = document.getElementById("timestamp");
 const initialIssue = document.getElementById("initialIssue");
 const troubleshooting = document.getElementById("troubleshooting");
 const resolution = document.getElementById("resolution");
 const generateButton = document.getElementById("generateButton");
 const notesOutput = document.getElementById("notesOutput");
-const template = document.getElementById("template");
+const copyButton = document.getElementById("copyButton");
+const resetButton = document.getElementById("resetButton");
 
+// Function to get formatted date and time
 function getFormattedDateTime() {
   const now = new Date();
-  return now.toLocaleString(); // Adjust format if needed
+  return now.toLocaleString();
 }
 
+// Initial timestamp display
 timestamp.textContent = getFormattedDateTime();
 
-generateButton.addEventListener("click", function() {
-  const notes = `${getFormattedDateTime()}
+// Event listener for the "Generate Notes" button
+generateButton.addEventListener("click", function () {
+  // Get input values (trim whitespace)
+  const initialIssueText = initialIssue.value.trim();
+  const troubleshootingText = troubleshooting.value.trim();
+  const resolutionText = resolution.value.trim();
 
----Initial Issue---
-${initialIssue.value}
+  // Input validation: Ensure all fields are filled
+  if (!initialIssueText || !troubleshootingText || !resolutionText) {
+    alert("Please fill in all fields before generating notes.");
+    return;
+  }
 
----Troubleshooting---
-${troubleshooting.value}
+  // Generate formatted notes (template literal)
+  const notes = `
+    <h2>Job Notes</h2>
+    <p>Timestamp: ${getFormattedDateTime()}</p>
 
----Resolution---
-${resolution.value}`;
+    <h3>Initial Issue:</h3>
+    <p>${initialIssueText}</p>
 
-  // Create notes element (with buttons)
-  const notesElement = document.createElement("pre");
-  notesElement.textContent = notes;
+    <h3>Troubleshooting:</h3>
+    <p>${troubleshootingText}</p>
 
-  notesElement.style.whiteSpace = "pre-wrap"; // Preserve line breaks
+    <h3>Resolution:</h3>
+    <p>${resolutionText}</p>
+  `;
 
-  const copyButton = document.createElement("button");
-  copyButton.textContent = "Copy";
-  copyButton.addEventListener("click", function() {
-    navigator.clipboard.writeText(notes)
-      .then(() => alert("Notes copied to clipboard!"))
-      .catch(err => console.error("Failed to copy: ", err));
+  // Create a container for the notes
+  const notesContainer = document.createElement("div");
+  notesContainer.classList.add("notes-container");
+  notesContainer.innerHTML = notes;
+
+  // Replace the original template with the formatted notes
+  const template = document.getElementById("template");
+  template.parentNode.replaceChild(notesContainer, template);
+
+  // Show the copy and reset buttons
+  copyButton.style.display = "block";
+  resetButton.style.display = "block";
+
+  // Copy button functionality
+  copyButton.addEventListener("click", function () {
+    const notesText = notesContainer.textContent;
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = notesText;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextarea);
+    alert("Notes copied to clipboard!");
   });
 
-  const resetButton = document.createElement("button");
-  resetButton.textContent = "Reset";
-  resetButton.addEventListener("click", function() {
-    notesOutput.style.display = "none";
-    template.style.display = "block";
+  // Reset button functionality
+  resetButton.addEventListener("click", function () {
     initialIssue.value = "";
     troubleshooting.value = "";
     resolution.value = "";
+    notesContainer.parentNode.replaceChild(template, notesContainer);
+    copyButton.style.display = "none";
+    resetButton.style.display = "none";
   });
-
-  // Update notesOutput content
-  notesOutput.innerHTML = ""; 
-  notesOutput.appendChild(notesElement);
-  notesOutput.appendChild(copyButton);
-  notesOutput.appendChild(resetButton);
-
-  // Show notes and hide template
-  notesOutput.style.display = "block";
-  template.style.display = "none"; 
 });
