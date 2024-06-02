@@ -16,13 +16,13 @@ timestamp.textContent = getFormattedDateTime();
 generateButton.addEventListener("click", function() {
   const notes = `${getFormattedDateTime()}
 
---- <strong>Initial Issue</strong> ---
+---Initial Issue---
 ${initialIssue.value}
 
---- <strong>Troubleshooting</strong> ---
+---Troubleshooting---
 ${troubleshooting.value}
 
---- <strong>Resolution</strong> ---
+---Resolution---
 ${resolution.value}`;
 
   // Create notes element (with buttons)
