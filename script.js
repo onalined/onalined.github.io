@@ -14,11 +14,22 @@ function getFormattedDateTime() {
 timestamp.textContent = getFormattedDateTime();
 
 generateButton.addEventListener("click", function() {
-  // ... (same as before, create notes string)
+  const notes = `${getFormattedDateTime()}
+
+--- <strong>Initial Issue</strong> ---
+${initialIssue.value}
+
+--- <strong>Troubleshooting</strong> ---
+${troubleshooting.value}
+
+--- <strong>Resolution</strong> ---
+${resolution.value}`;
 
   // Create notes element (with buttons)
   const notesElement = document.createElement("pre");
   notesElement.textContent = notes;
+
+  notesElement.style.whiteSpace = "pre-wrap"; // Preserve line breaks
 
   const copyButton = document.createElement("button");
   copyButton.textContent = "Copy";
@@ -32,18 +43,19 @@ generateButton.addEventListener("click", function() {
   resetButton.textContent = "Reset";
   resetButton.addEventListener("click", function() {
     notesOutput.style.display = "none";
-    template.style.display = "block"; 
-    initialIssue.value = '';
-    troubleshooting.value = '';
-    resolution.value = '';
+    template.style.display = "block";
+    initialIssue.value = "";
+    troubleshooting.value = "";
+    resolution.value = "";
   });
 
-  notesOutput.innerHTML = ''; // Clear previous notes
+  // Update notesOutput content
+  notesOutput.innerHTML = ""; 
   notesOutput.appendChild(notesElement);
   notesOutput.appendChild(copyButton);
   notesOutput.appendChild(resetButton);
 
   // Show notes and hide template
   notesOutput.style.display = "block";
-  template.style.display = "none";
+  template.style.display = "none"; 
 });
