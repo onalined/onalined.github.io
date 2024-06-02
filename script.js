@@ -1,83 +1,63 @@
-// Get references to elements
-const timestamp = document.querySelector("#timestamp");
-const initialIssue = document.querySelector("#initialIssue");
-const troubleshooting = document.querySelector("#troubleshooting");
-const resolution = document.querySelector("#resolution");
-const generateButton = document.querySelector("#generateButton");
-const templateDiv = document.querySelector("#template");
-const notesOutputDiv = document.querySelector("#notesOutput");
+const timestamp = document.getElementById("timestamp");
+const initialIssue = document.getElementById("initialIssue");
+const troubleshooting = document.getElementById("troubleshooting");
+const resolution = document.getElementById("resolution");
+const generateButton = document.getElementById("generateButton");
+const templateDiv = document.getElementById("template");
+const notesOutputDiv = document.getElementById("notesOutput");
 
-// Function to get formatted date and time
 function getFormattedDateTime() {
-    return new Date().toLocaleString();
+  return new Date().toLocaleString();
 }
 
-// Initial timestamp display
 timestamp.textContent = getFormattedDateTime();
 
 generateButton.addEventListener("click", () => {
-    // 1. Get input values (trim whitespace)
-    const initialIssueText = initialIssue.value.trim();
-    const troubleshootingText = troubleshooting.value.trim();
-    const resolutionText = resolution.value.trim();
+  const initialIssueText = initialIssue.value.trim();
+  const troubleshootingText = troubleshooting.value.trim();
+  const resolutionText = resolution.value.trim();
 
-    // 2. Input validation: Ensure all fields are filled
-    if (!initialIssueText || !troubleshootingText || !resolutionText) {
-        alert("Please fill in all fields before generating notes.");
-        return;
-    }
+  if (!initialIssueText || !troubleshootingText || !resolutionText) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
-    // Format and display the notes in the notesOutput div
-    notesOutputDiv.innerHTML = `
-        <div class="notes-container">
-            <h2>Job Notes</h2>
-            <p>Timestamp: ${getFormattedDateTime()}</p>
-            
-            <h3>Initial Issue</h3>
-            ${initialIssueText.replace(/\n/g, '<br>')}
+  const notesText = `Job Notes
+Timestamp: ${getFormattedDateTime()}
 
-            <h3>Troubleshooting</h3>
-            ${troubleshootingText.replace(/\n/g, '<br>')}
+Initial Issue:
+${initialIssueText}
 
-            <h3>Resolution</h3>
-            ${resolutionText.replace(/\n/g, '<br>')}
-        </div>
-        <button id="copyButton">Copy Notes</button>
-        <button id="resetButton">Reset</button>
-    `;
-    // Show notes, hide template, and add event listeners to the new buttons
-    templateDiv.style.display = "none";
-    notesOutputDiv.style.display = "block";
-    const copyButton = document.querySelector("#copyButton");
-    const resetButton = document.querySelector("#resetButton");
+Troubleshooting:
+${troubleshootingText}
 
-    // Copy button functionality (using Clipboard API if available)
-    copyButton.addEventListener("click", () => {
-        // Get the text content without extra whitespace or HTML tags
-        const notesText = notesOutputDiv.querySelector('.notes-container').innerText; 
+Resolution:
+${resolutionText}`;
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(notesText)
-                .then(() => alert("Notes copied to clipboard!"))
-                .catch(err => console.error('Failed to copy: ', err));
-        } else {
-            // Fallback to old method
-            const tempTextarea = document.createElement("textarea");
-            tempTextarea.value = notesText;
-            document.body.appendChild(tempTextarea);
-            tempTextarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempTextarea);
-            alert("Notes copied to clipboard!");
-        }
-    });
+  notesOutputDiv.innerHTML = `
+    <div class="notes-container">
+      <h2>Job Notes</h2>
+      <pre>${notesText}</pre> 
+    </div>
+    <button id="copyButton">Copy Notes</button>
+    <button id="resetButton">Reset</button>
+  `;
 
-    resetButton.addEventListener("click", () => {
-        // Clear inputs and switch back to the template view
-        initialIssue.value = "";
-        troubleshooting.value = "";
-        resolution.value = "";
-        notesOutputDiv.style.display = "none";
-        templateDiv.style.display = "block";
-    });
+  templateDiv.style.display = "none";
+  notesOutputDiv.style.display = "block";
+
+  const copyButton = document.getElementById("copyButton");
+  const resetButton = document.getElementById("resetButton");
+
+  copyButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(notesText)
+      .then(() => alert("Notes copied!"))
+      .catch(err => console.error("Copy failed:", err));
+  });
+
+  resetButton.addEventListener("click", () => {
+    initialIssue.value = troubleshooting.value = resolution.value = "";
+    notesOutputDiv.style.display = "none";
+    templateDiv.style.display = "block";
+  });
 });
