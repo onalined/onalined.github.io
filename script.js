@@ -1,4 +1,4 @@
-// Get references to elements (using querySelector for better performance)
+// Get references to elements
 const timestamp = document.querySelector("#timestamp");
 const initialIssue = document.querySelector("#initialIssue");
 const troubleshooting = document.querySelector("#troubleshooting");
@@ -10,10 +10,10 @@ const resetButton = document.querySelector("#resetButton");
 
 // Function to get formatted date and time
 function getFormattedDateTime() {
-  return new Date().toLocaleString(); // Simplified
+  return new Date().toLocaleString();
 }
 
-// Initial timestamp display (outside the event listener for optimization)
+// Initial timestamp display
 timestamp.textContent = getFormattedDateTime();
 
 // Event listener for the "Generate Notes" button
@@ -29,23 +29,21 @@ generateButton.addEventListener("click", () => {
     return;
   }
 
-  // 3. Generate formatted notes (template literal)
-  const notes = `
-    <h2>Job Notes</h2>
-    <p>Timestamp: ${getFormattedDateTime()}</p>
-    
-    <h3>--- Initial Issue ---</h3>
-    <p>${initialIssueText}</p>
-    
-    <h3>--- Troubleshooting ---</h3>
-    <p>${troubleshootingText}</p>
-    
-    <h3>--- Resolution ---</h3>
-    <p>${resolutionText}</p>
-  `;
+  // 3. Generate formatted notes (plain text with dashes)
+  const notes = `Job Notes
+Timestamp: ${getFormattedDateTime()}
+
+--- Initial Issue ---
+${initialIssueText}
+
+--- Troubleshooting ---
+${troubleshootingText}
+
+--- Resolution ---
+${resolutionText}`;
 
   // 4. Display formatted notes in the output area
-  notesOutput.innerHTML = notes;
+  notesOutput.textContent = notes; // Use textContent for plain text
   notesOutput.classList.add("notes-container");
 
   // 5. Show buttons
@@ -54,20 +52,19 @@ generateButton.addEventListener("click", () => {
 
   // Copy button functionality (using Clipboard API if available)
   copyButton.addEventListener("click", () => {
-    const notesText = notesOutput.textContent.trim();
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(notesText)
-            .then(() => alert("Notes copied to clipboard!"))
-            .catch(err => console.error('Failed to copy: ', err));
+      navigator.clipboard.writeText(notes)
+        .then(() => alert("Notes copied to clipboard!"))
+        .catch(err => console.error('Failed to copy: ', err));
     } else {
-        // Fallback to old method
-        const tempTextarea = document.createElement("textarea");
-        tempTextarea.value = notesText;
-        document.body.appendChild(tempTextarea);
-        tempTextarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempTextarea);
-        alert("Notes copied to clipboard!");
+      // Fallback to old method
+      const tempTextarea = document.createElement("textarea");
+      tempTextarea.value = notes;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextarea);
+      alert("Notes copied to clipboard!");
     }
   });
 
@@ -76,9 +73,8 @@ generateButton.addEventListener("click", () => {
     initialIssue.value = "";
     troubleshooting.value = "";
     resolution.value = "";
-    notesOutput.innerHTML = "";
+    notesOutput.textContent = ""; // Clear plain text content
     copyButton.style.display = "none";
     resetButton.style.display = "none";
   });
 });
-
