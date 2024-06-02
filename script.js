@@ -19,48 +19,49 @@ timestamp.textContent = getFormattedDateTime();
 
 // Event listener for the "Generate Notes" button
 generateButton.addEventListener("click", function () {
-  // Get input values (trim whitespace)
+  // 1. Get input values (trim whitespace)
   const initialIssueText = initialIssue.value.trim();
   const troubleshootingText = troubleshooting.value.trim();
   const resolutionText = resolution.value.trim();
 
-  // Input validation: Ensure all fields are filled
+  // 2. Input validation: Ensure all fields are filled
   if (!initialIssueText || !troubleshootingText || !resolutionText) {
     alert("Please fill in all fields before generating notes.");
     return;
   }
 
-  // Generate formatted notes (template literal)
+  // 3. Generate formatted notes (template literal) 
+  // (Updated formatting for titles with ---)
   const notes = `
     <h2>Job Notes</h2>
     <p>Timestamp: ${getFormattedDateTime()}</p>
 
-    <h3>Initial Issue:</h3>
+    <h3>--- Initial Issue ---</h3>
     <p>${initialIssueText}</p>
 
-    <h3>Troubleshooting:</h3>
+    <h3>--- Troubleshooting ---</h3>
     <p>${troubleshootingText}</p>
 
-    <h3>Resolution:</h3>
+    <h3>--- Resolution ---</h3>
     <p>${resolutionText}</p>
   `;
 
-  // Create a container for the notes
+  // 4. Create a container for the notes
   const notesContainer = document.createElement("div");
   notesContainer.classList.add("notes-container");
   notesContainer.innerHTML = notes;
 
-  // Replace the original template with the formatted notes
+  // 5. Replace the original template with the formatted notes
   const template = document.getElementById("template");
   template.parentNode.replaceChild(notesContainer, template);
 
-  // Show the copy and reset buttons
+  // 6. Show the copy and reset buttons
   copyButton.style.display = "block";
   resetButton.style.display = "block";
 
-  // Copy button functionality
+  // Copy button functionality (with trim for copied text)
   copyButton.addEventListener("click", function () {
-    const notesText = notesContainer.textContent;
+    const notesText = notesContainer.textContent.trim(); // Trim whitespace
     const tempTextarea = document.createElement("textarea");
     tempTextarea.value = notesText;
     document.body.appendChild(tempTextarea);
@@ -80,3 +81,4 @@ generateButton.addEventListener("click", function () {
     resetButton.style.display = "none";
   });
 });
+
