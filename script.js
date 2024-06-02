@@ -25,13 +25,13 @@ generateButton.addEventListener("click", () => {
   const notesText = `Job Notes
 Timestamp: ${getFormattedDateTime()}
 
-Initial Issue:
+---Initial Issue---
 ${initialIssueText}
 
-Troubleshooting:
+---Troubleshooting---
 ${troubleshootingText}
 
-Resolution:
+---Resolution---
 ${resolutionText}`;
 
   notesOutputDiv.innerHTML = `
@@ -61,3 +61,4 @@ ${resolutionText}`;
     templateDiv.style.display = "block";
   });
 });
+
