@@ -1,72 +1,101 @@
-/* Basic Styling for Overall Look */
+/* General Styles */
+
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    display: flex; /* Enable Flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center;    /* Center vertically */
-    min-height: 100vh;     /* Ensure full viewport height */
+    font-family: 'Roboto', sans-serif;     /* Modern sans-serif font for readability */
+    line-height: 1.6;                     /* Line height for comfortable reading */
+    display: flex;                         /* Enable Flexbox for layout */
+    justify-content: center;               /* Horizontally center the content */
+    align-items: center;                   /* Vertically center the content */
+    min-height: 100vh;                     /* Ensure the body takes up the full viewport height */
+    background-color: #f4f4f4;             /* Subtle background color for the body */
 }
 
-/* Styling for Headings and Text Areas */
-h2 {
-    color: #333;
-    margin-bottom: 8px;
-    font-size: 1.2em;
-}
-
-/* Main container for the form and notes output */
+/* Main containers for the form and notes output */
 #template, #notesOutput {
-    width: 50%; /* Adjust the width as needed (e.g., 80%) */
-    max-width: 800px; /* Limit the maximum width for larger screens */
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    width: 65%;                            /* Initial width of the containers (90% of the viewport) */
+    max-width: 600px;                      /* Maximum width on larger screens (to prevent content from stretching too wide) */
+    background-color: #fff;                /* White background for the containers */
+    padding: 20px;                         /* Padding inside the containers */
+    border-radius: 8px;                     /* Rounded corners for a modern look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow to add depth */
 }
 
+/* Heading Styles */
+h2 {
+    color: #212121;                       /* Dark grey color for headings */
+    margin-bottom: 15px;                  /* Space below headings */
+}
+
+/* Textarea Styles */
 textarea {
-    width: calc(100% - 22px);
-    height: 80px;
-    padding: 8px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    width: calc(100% - 22px);             /* Full width minus padding and border */
+    height: 100px;                       /* Height of the textarea */
+    padding: 12px;                       /* Padding inside the textarea */
+    border: 1px solid #e0e0e0;           /* Light grey border */
+    border-radius: 4px;                   /* Rounded corners for the textarea */
+    box-sizing: border-box;               /* Include padding and border in the element's total width and height */
+    font-family: inherit;                 /* Use the same font as the rest of the body */
 }
 
-/* Styling for the Generate, Copy, and Reset Buttons */
+/* Button Styles */
 button {
-    /* ... (rest of the button styles) ... */
+    background-color: #007BFF;           /* Blue background color */
+    color: #fff;                         /* White text color */
+    padding: 12px 20px;                  /* Padding inside the button */
+    border: none;                         /* Remove default button border */
+    border-radius: 4px;                   /* Rounded corners for the button */
+    cursor: pointer;                      /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for the background color on hover */
+    font-size: 16px;                     /* Font size of the button text */
 }
 
-/* Enhanced Plain Text Styling */
-.notes-container {
-    /* ... (rest of the notes-container styles) ... */
+button:hover {
+    background-color: #0056b3;           /* Darker blue on hover */
 }
+
+/* Notes Output Styles */
+.notes-container {
+    background-color: #fff;                /* White background for the notes container */
+    padding: 15px;                         /* Padding inside the container */
+    border-radius: 8px;                     /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle box shadow */
+    margin-bottom: 20px;                  /* Space below the container */
+    line-height: 1.5;                     /* Line height for the notes content */
+    font-family: 'Courier New', monospace; /* Monospace font for the notes */
+    white-space: pre-line;                /* Preserve line breaks in the notes */
+}
+
+.notes-container h2 {
+    font-size: 1.1em;                      /* Slightly larger font size for the notes heading */
+    margin-bottom: 8px;                   /* Space below the notes heading */
+}
+
 
 /* Media Query for Smaller Screens (e.g., smartphones) */
-@media (max-width: 480px) {
+@media (max-width: 480px) { 
     body {
-        margin: 5px;
-        flex-direction: column; /* Stack elements vertically on small screens */
+        margin: 5px;                    /* Reduce margin on small screens */
+        flex-direction: column;         /* Stack elements vertically on small screens */
     }
 
     #template, #notesOutput {
-        width: 100%; /* Full width on small screens */
-        padding: 10px; /* Reduce padding on small screens */
+        width: 100%;                     /* Full width on small screens */
+        padding: 10px;                  /* Reduced padding on small screens */
     }
 
     textarea {
-        height: 60px;
+        height: 60px;                   /* Reduced height on small screens */
     }
-  
+
     button {
-        padding: 10px 20px;
-        width: 100%;
-        margin: 8px auto;
+        padding: 10px 20px;             /* Smaller padding on small screens */
+        width: 100%;                     /* Full width on small screens */
+        margin: 8px auto;                /* Smaller margin between buttons on small screens */
     }
 
     #notesOutput {
-        margin-top: 10px;
+        margin-top: 10px;               /* Reduced margin on small screens */
     }
 }
+
 
