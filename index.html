@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Job Notes Generator</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Job Notes Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="template">
-    <p id="timestamp"></p>
-    <h2>Initial Issue</h2>
-    <textarea id="initialIssue" placeholder="Describe the initial issue or problem..."></textarea>
+    <div id="template">
+        <p id="timestamp"></p>
+        <h2>Initial Issue</h2>
+        <textarea id="initialIssue" placeholder="Describe the initial issue or problem..."></textarea>
+        <h2>Troubleshooting</h2>
+        <textarea id="troubleshooting" placeholder="Detail the troubleshooting steps taken..."></textarea>
+        <h2>Resolution</h2>
+        <textarea id="resolution" placeholder="Explain the final solution or outcome..."></textarea>
+        <button id="generateButton">Generate Notes</button>
+    </div>
 
-    <h2>Troubleshooting</h2>
-    <textarea id="troubleshooting" placeholder="Detail the troubleshooting steps taken..."></textarea>
-
-    <h2>Resolution</h2>
-    <textarea id="resolution" placeholder="Explain the final solution or outcome..."></textarea>
-
-    <button id="generateButton">Generate Notes</button>
-  </div>
-
-  <div id="notesOutput"></div>
-  <button id="copyButton" style="display: none;">Copy Notes</button>
-  <button id="resetButton" style="display: none;">Reset</button>
-
-  <script src="script.js"></script>
+    <div id="notesOutput" style="display: none;">
+        </div>
+    <script src="script.js"></script>
 </body>
 </html>
